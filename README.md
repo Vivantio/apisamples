@@ -3,5 +3,5 @@ This is the new home for API samples for the Vivantio Pro / ITSM API. We're just
 * What languages / technologies you use
 * What sort of samples you'd like to see
 * Any other feedback!
-# License
+## License
 All our AP samples are published under the MIT Public License; see https://github.com/Vivantio/apisamples/blob/master/License.txt for further information.
