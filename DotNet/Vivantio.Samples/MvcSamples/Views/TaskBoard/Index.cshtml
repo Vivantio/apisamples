@@ -1,0 +1,18 @@
+﻿@model dynamic
+
+<div class="container">
+	<h1>Task Board</h1>
+	<p>Task Board, Kanban Board, Agile Board - call it what you will, if you work in Software Development, it's a pretty good bet you've come across some variant of these before. In this example, we look at how we can turn Vivantio Tickets into a Task Board.</p>
+	<h2>What is a Task Board?</h2>
+	<p><em>(If you're familiar with a Task Board, skip this section!)</em></p>
+	<p>A Task Board - or whatever term you use for it - is a quick way of visualizing work in progress. Generally they're more useful (or at least more commonly used) within Software Development teams than Help Desk teams. That said, if you're using Vivantio for Change Management and/or Request Fulfillment, a Task Board might be a useful way for you to get a quick overview of how many requests you have active. And of course if you're using Vivantio to track Software Development, then the applications are obvious.</p>
+	<p>The basic principle of the Task Board is that it contains a number of columns which represent the status of activities; activities are then represented as "cards" within each column. We'll be using Statuses within Vivantio to derive the columns in our board, and Tickets will appear as cards in those columns.</p>
+	<h2>Methods Used</h2>
+	<p>The API methods used in this example are:</p>
+	<ul>
+		<li><a target="_blank" href="https://webservices-na01.vivantio.com/Help/Api/POST-api-Configuration-TicketTypeSelectAll">/Configuration/TicketTypeSelectAll</a></li>
+		<li><a target="_blank" href="https://webservices-na01.vivantio.com/Help/Api/POST-api-Ticket-Select">/Ticket/Select</a></li>
+	</ul>
+	<h2>The Task Board</h2>
+	<p>Ready to see it in action? Then @Html.ActionLink("click here!", "Board")</p>
+</div>

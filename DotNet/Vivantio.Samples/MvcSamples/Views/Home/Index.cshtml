@@ -1,0 +1,39 @@
+﻿@model dynamic
+
+<div class="container">
+	<h1>Vivantio API Samples - ASP.NET MVC</h1>
+	<h2>Introduction</h2>
+	<p>
+		The aim of this sample solution is to provide you with some "real world" examples of how to consume the Vivantio API from within ASP.NET MVC applications.
+		None of the techniques surrounding the API are specific to MVC though: the two sample libraries provided - Vivantio.Samples.DTO and Vivantio.Samples.JsonApi - can
+		be used from within any .NET application. These samples are published under the <a href="https://tldrlegal.com/license/mit-license" target="_blank">MIT License</a>, so you can
+		pretty much do whatever you want with them. If you can't get the samples working, please <a href="https://support.vivantio.com/" target="_blank">contact support</a>.
+	</p>
+	<p>We're using ASP.NET MVC 4 (we know, it's a bit old, but some of you out there in the corporate world are still stuck on VS2012 and can't upgrade...), and we're making use of a number of external third party components, including:</p>
+	<ul>
+		<li><a href="http://www.newtonsoft.com/json">Json.NET</a></li>
+		<li><a href="https://jquery.com">jQuery</a></li>
+		<li><a href="https://jqueryui.com/">jQuery UI</a></li>
+		<li><a href="http://getbootstrap.com">Bootstrap</a></li>
+		<li><a href="http://knockoutjs.com/">Knockout</a></li>
+	</ul>
+	<p>None of them are <em>strictly</em> necessary, and you certainly don't have to use them in your own projects, but they'll make your life a lot easier (at least, they did for us!).</p>
+	<p>We've tried to keep the code as simple as possible: the focus here is on the API and how to consume it, not on security or performance - we'll leave that to you! - but where we think there's something particular you need to know, we'll point it out in comments.</p>
+	<p>Feel free to fork this repo and do what you like with it; if you think you can do something better than us, submit a pull request, and we'll gladly consider it! And so without further ado: The Samples...</p>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-4 col-lg-offset-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					@Html.ActionLink("Task Board", "Index", "TaskBoard")
+				</div>
+				<div class="panel-body text-center">
+					<a href="@Url.Action("Index", "TaskBoard")"><img class="img-responsive" src="/images/task-board-screenshot.png" alt="Task Board Thumbnail Image"/></a>
+					<br/>
+					<p>Task Board, Kanban Board, Agile Board - call it what you will, if you work in Software Development, it's a pretty good bet you've come across some variant of these before. In this example, we look at how we can turn Vivantio Tickets into a Task Board.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

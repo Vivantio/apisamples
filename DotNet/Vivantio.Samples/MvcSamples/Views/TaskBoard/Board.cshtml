@@ -1,0 +1,273 @@
+﻿@model Vivantio.Samples.MvcSamples.ViewModels.TaskBoard.TaskBoardViewModel
+
+<style type="text/css" scoped>
+	.row.board-row > div {
+		border-right: dashed 1px #000;
+	}
+	.row.board-row > div:last-child {
+		border-right: none;
+	}
+	.row.board-row {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+	}
+	.glow {
+		-webkit-box-shadow: inset 0 0 40px rgba(0,255,0,0.43);
+		-moz-box-shadow: inset 0 0 40px rgba(0,255,0,0.43);
+		box-shadow: inset 0 0 40px rgba(0,255,0,0.43);
+	}
+</style>
+
+<div id="boardWrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-9">
+				<div id="spinner" class="text-center" data-bind="visible: loading">
+					<img src="/Images/spinner.gif" alt="Loading..." />
+				</div>
+
+				<div id="noRecords" class="text-center" data-bind="visible: noData">
+					<h1>No Data Found</h1>
+				</div>
+
+				<div id="noTicketType" class="text-center" data-bind="visible: ticketTypeId() == 0">
+					<h1>Select a Ticket Type to view the Board</h1>
+				</div>
+				
+				<div id="board" class="row" data-bind="visible: !loading() && !noData()">
+					<div class="col-lg-12">
+						<div class="row board-row" data-bind="foreach: statuses">
+							<div class="text-center" data-bind="css:$root.columnClass">
+								<h3 data-bind="text: Name"></h3>
+							</div>
+						</div>
+
+						<div class="row board-row" data-bind="foreach: statuses">
+							<div class="sortable-marker board-row-data" data-bind="css: $root.columnClass, attr: {'data-status-id': $data.Id, 'data-status-type': $data.Type}">
+								<!-- ko foreach: $root.tickets(Id) -->
+								<div class="panel panel-default" data-bind="attr: { 'data-ticket-id': Id }">
+									<div class="panel-heading" style="cursor: pointer">
+										<span data-bind="text: DisplayId"></span>
+									</div>
+									<div class="panel-body">
+										<p data-bind="text: Title"></p>
+									</div>
+									<div class="panel-footer">
+										<button type="button" class="btn btn-primary btn-xs pull-right" data-bind="click: $root.showDetails">Details</button>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+								<!-- /ko -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3" style="padding-top:50px;">
+				<label class="control-label">Ticket Type:</label>
+				@{
+					var ticketTypeSelectListItems = Model.TicketTypes.Select(s => new SelectListItem
+																					{
+																						Text = s.NamePlural,
+																						Value = s.Id.ToString()
+																					}).ToList();
+					ticketTypeSelectListItems.Insert(0, new SelectListItem());
+				}
+				@Html.DropDownList("TicketTypeId", ticketTypeSelectListItems, new { @class = "form-control", data_bind = "value:ticketTypeId" })
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ticketDetailsModal" tabindex="-1" role="dialog" aria-labelledby="ticketDetailsModalLabel" aria-hidden="true">
+	<div class="modal-dialog" data-bind="with:ticket">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="ticketDetailsModalLabel" data-bind="text:DisplayId"></h4><small data-bind="text:Title"></small>
+			</div>
+			<div class="modal-body">
+				<p data-bind="text:Description"></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section scripts
+{
+	<script type="text/javascript">
+		//<![CDATA[
+		(function(v)
+		{
+			v.ViewModels = v.ViewModels || {};
+
+			v.ViewModels.TicketDetailViewModel = function()
+			{
+				var self = this;
+
+				self.ticket = ko.observable();
+			};
+
+			var ticketDetailsViewModel = new v.ViewModels.TicketDetailViewModel();
+			ko.applyBindings(ticketDetailsViewModel, $('#ticketDetailsModal').get(0));
+
+
+			v.ViewModels.TaskBoardViewModel = function(detailsViewModel)
+			{
+				var self = this;
+
+				var initialType = 0;
+				if (!!window.location.hash)
+					initialType = window.location.hash.substring(1);
+
+				self.ticketTypeId = ko.observable(initialType);
+				self.rawData = ko.observableArray([]);
+				self.loading = ko.observable(false);
+				self.noData = ko.observable(false);
+
+				self.statuses = ko.observableArray([]);
+
+				self.tickets = function(statusId)
+				{
+					var data = [];
+					var tickets = self.rawData();
+					$.each(tickets, function(ix)
+					{
+						var ticket = this;
+						if (ticket.StatusId.toString() == statusId.toString())
+							data.push(ticket);
+					});
+					return data;
+				};
+
+				self.columnClass = ko.computed(function()
+				{
+					var statusCount = self.statuses().length;
+					if (statusCount > 6)
+						return "col-lg-1";
+					else if (statusCount > 4)
+						return "col-lg-2";
+					else if (statusCount > 3)
+						return "col-lg-3";
+					else if (statusCount > 2)
+						return "col-lg-4";
+					else if (statusCount > 1)
+						return "col-lg-6";
+					return "col-lg-12";
+				});
+
+				ko.computed(function()
+				{
+					var typeId = self.ticketTypeId();
+
+					if (typeId > 0)
+					{
+						window.location.hash = typeId;
+
+						$('#noRecords').hide();
+						self.loading(true);
+						self.noData(false);
+						self.rawData([]);
+
+						$.ajax({
+							url: "@Url.Action("Statuses")",
+							method: "POST",
+							data: { ticketTypeId: typeId }
+						}).then(function(statusList)
+						{
+							self.statuses(statusList);
+
+							return $.ajax({
+								url: "@Url.Action("Tickets")",
+								method: "POST",
+								data: { ticketTypeId: typeId }
+							});
+						}).then(function(ticketList)
+						{
+							if (ticketList && ticketList.length > 0)
+								self.rawData(ticketList);
+							else
+								self.noData(true);
+
+							self.loading(false);
+							self.initDragAndDrop();
+						}).fail(function()
+						{
+							alert('Whoops! An error has occurred. Try refreshing the page.');
+							self.loading(false);
+						});
+					}
+					else
+					{
+						self.rawData([]);
+					}
+				});
+
+				self.showDetails = function(item)
+				{
+					detailsViewModel.ticket(item);
+					$('#ticketDetailsModal').modal();
+				};
+
+				self.initDragAndDrop = function()
+				{
+					$('.sortable-marker').sortable({
+						connectWith: '.sortable-marker',
+						stop: function(e, ui)
+						{
+							var ticketId = ui.item.attr('data-ticket-id');
+							var statusId = ui.item.closest('[data-status-id]').attr('data-status-id');
+							var statusType = ui.item.closest('[data-status-id]').attr('data-status-type');
+
+							var ticket = ko.utils.arrayFirst(self.rawData(), function(t)
+							{
+								return (ticketId == t.Id);
+							});
+
+							if (ticket && ticket.StatusId != statusId)
+							{
+								var url = statusType == "4" ? "@Url.Action("Close")" : "@Url.Action("ChangeStatus")";
+
+								$.ajax({
+									url: url,
+									method: "POST",
+									data: {
+										ticketId: ticketId,
+										statusId: statusId
+									}
+								}).done(function(resp)
+								{
+									if (!resp.Successful)
+									{
+										alert('Whoops! An error has occurred. Try refreshing the page.');
+									}
+								}).fail(function()
+								{
+									alert('Whoops! An error has occurred. Try refreshing the page.');
+									self.loading(false);
+								});
+							}
+						},
+						activate: function(e, i)
+						{
+							$('.board-row-data').addClass('glow');
+						},
+						deactivate: function(e, i)
+						{
+							$('.board-row-data').removeClass('glow');
+						}
+					});
+				};
+			};
+
+			var taskBoardViewModel = new v.ViewModels.TaskBoardViewModel(ticketDetailsViewModel);
+			ko.applyBindings(taskBoardViewModel, $('#boardWrapper').get(0));
+		})(window.Vivantio = window.Vivantio || {});
+	//]]>
+</script>
+}
