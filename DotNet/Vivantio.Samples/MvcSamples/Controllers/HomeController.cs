@@ -8,5 +8,10 @@ namespace Vivantio.Samples.MvcSamples.Controllers
 		{
 			return View();
 		}
+
+		public ActionResult Error()
+		{
+			return View();
+		}
 	}
 }

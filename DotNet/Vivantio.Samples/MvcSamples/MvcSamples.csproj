@@ -200,6 +200,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\TaskBoard\Index.cshtml" />
     <Content Include="Views\TaskBoard\Board.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
