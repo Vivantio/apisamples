@@ -9,4 +9,4 @@ You can view the live samples here:
 http://dotnet.samples.vivantio.com/
 
 ## License
-All our AP samples are published under the MIT Public License; see https://github.com/Vivantio/apisamples/blob/master/License.txt for further information.
+All our API samples are published under the MIT Public License; see https://github.com/Vivantio/apisamples/blob/master/License.txt for further information.
