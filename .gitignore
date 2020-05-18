@@ -15,6 +15,12 @@ build/
 [Bb]in/
 [Oo]bj/
 
+# Ignore NuGet Packages
+*.nupkg
+
+# The packages folder can be ignored because of Package Restore
+**/[Pp]ackages/*
+
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/
 
