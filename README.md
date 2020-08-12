@@ -8,7 +8,7 @@ This is the home for API code samples for Vivantio Pro / ITSM. We're just gettin
 
 We currently have two main Visual Studio solutions:
 
-- `Vivantio.Samples.sln` - an ASP.NET MVC full demo application (see the live application [here](http://dotnet.samples.vivantio.com/)).
+- `Vivantio.Samples.sln` - an ASP.NET MVC full demo application (see the live application [here](https://vivantioapisampleapp.azurewebsites.net/)).
 - `VivantioApiSamples.sln` - a .NET Console application that demonstrates various data access techniques using `HttpClient`.
 
 ## License
