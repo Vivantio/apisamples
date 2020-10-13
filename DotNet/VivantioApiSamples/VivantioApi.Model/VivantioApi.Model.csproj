@@ -54,7 +54,9 @@
     <Compile Include="FieldDefinition.cs" />
     <Compile Include="FormInstance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TicketAction.cs" />
     <Compile Include="TicketType.cs" />
+    <Compile Include="UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
