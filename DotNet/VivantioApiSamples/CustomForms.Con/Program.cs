@@ -76,7 +76,8 @@ namespace CustomForms.Con
 
             var fds = await GetCustomFormDefinitionDetailForFormDefinitionIdAsync(_client, formDefinitionId).ConfigureAwait(false);
 
-            Console.WriteLine($"ID: {fds.Id}{valueSeparator}Name: { fds.Name}");
+            if(fds != null)
+              Console.WriteLine($"ID: {fds.Id}{valueSeparator}Name: { fds.Name}");
         }
 
         private static async Task PrintCustomFormDefinitionsForTicketInstance()
@@ -98,7 +99,8 @@ namespace CustomForms.Con
 
             var fd = await GetCustomFieldDefinitionAsync(_client, fieldDefinitionId).ConfigureAwait(false);
 
-            Console.WriteLine($"ID: {fd.Id}{valueSeparator}Name: { fd.Name}{valueSeparator}Label: {fd.Label}");
+            if(fd != null)
+              Console.WriteLine($"ID: {fd.Id}{valueSeparator}Name: { fd.Name}{valueSeparator}Label: {fd.Label}");
         }
 
         private static async Task PrintCustomFormInstanceForTicketInstance()

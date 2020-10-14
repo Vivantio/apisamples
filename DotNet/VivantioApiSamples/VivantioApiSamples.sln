@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VivantioApi.Data", "Vivanti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomForms.Con", "CustomForms.Con\CustomForms.Con.csproj", "{45799CC5-2127-4286-8828-7C262B92EA51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tickets.Con", "Tickets.Con\Tickets.Con.csproj", "{7511F6CE-F121-44A4-84D7-7306F3F7CA0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{45799CC5-2127-4286-8828-7C262B92EA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45799CC5-2127-4286-8828-7C262B92EA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45799CC5-2127-4286-8828-7C262B92EA51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7511F6CE-F121-44A4-84D7-7306F3F7CA0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7511F6CE-F121-44A4-84D7-7306F3F7CA0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7511F6CE-F121-44A4-84D7-7306F3F7CA0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7511F6CE-F121-44A4-84D7-7306F3F7CA0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
